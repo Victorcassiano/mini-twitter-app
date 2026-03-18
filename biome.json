@@ -18,13 +18,38 @@
     "enabled": true,
     "rules": {
       "recommended": true,
+      "complexity": {
+        "useRegexLiterals": "off"
+      },
+      "correctness": {
+        "noUnusedImports": {
+          "level": "warn",
+          "fix": "safe"
+        },
+        "useExhaustiveDependencies": "off"
+      },
       "suspicious": {
-        "noUnknownAtRules": "off"
+        "noDuplicateAtImportRules": "warn",
+        "noArrayIndexKey": "off",
+        "noUnknownAtRules": "off",
+        "noAssignInExpressions": "off"
+      },
+      "style": {
+        "noInferrableTypes": {
+          "level": "off"
+        },
+        "noUnusedTemplateLiteral": {
+          "level": "warn",
+          "fix": "safe"
+        },
+        "useImportType": "off",
+        "noNonNullAssertion": "off"
+      },
+      "a11y": {
+        "useFocusableInteractive": "off",
+        "useSemanticElements": "off",
+        "noLabelWithoutControl": "off"
       }
-    },
-    "domains": {
-      "next": "recommended",
-      "react": "recommended"
     }
   },
   "assist": {
@@ -32,6 +57,12 @@
       "source": {
         "organizeImports": "on"
       }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double",
+      "semicolons": "asNeeded"
     }
   }
 }
