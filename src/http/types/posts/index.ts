@@ -1,3 +1,6 @@
+import z from "zod"
+import { feedSchema } from "@/http/schemas/posts"
+
 export type CreatePostInput = {
   title: string
   content: string
@@ -13,17 +16,16 @@ export type Post = {
   id: number
   title: string
   content: string
-  image: string
+  image: string | null
   authorId: number
   createdAt: string
   authorName: string
   likesCount: number
+  isLiked?: boolean
 }
 
-export type FeedFormValues = {
-  title: string
-  content: string
-}
+export type FeedFormInput = z.input<typeof feedSchema>
+export type FeedFormOutput = z.output<typeof feedSchema>
 
 export type GetPosts = {
   limit: number

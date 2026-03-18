@@ -1,6 +1,7 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useMutation } from "@tanstack/react-query"
 import { DeletePostParams } from "@/http/types/posts"
 import customInstance from "@/lib/mutator"
+import { usePostsStore } from "@/lib/store/posts"
 
 async function deletePost(params: DeletePostParams): Promise<void> {
   return await customInstance<void>({
@@ -10,12 +11,12 @@ async function deletePost(params: DeletePostParams): Promise<void> {
 }
 
 export function useDeletePost() {
-  const queryClient = useQueryClient()
+  const removePost = usePostsStore((s) => s.removePost)
 
   return useMutation<void, Error, DeletePostParams>({
     mutationFn: deletePost,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["posts"] })
+    onSuccess: (_, { id }) => {
+      removePost(id)
     },
   })
 }
