@@ -2,6 +2,7 @@ import { useInfiniteQuery } from "@tanstack/react-query"
 import { useSearchParams } from "next/navigation"
 import { GetPosts, GetPostsParams } from "@/http/types/posts"
 import customInstance from "@/lib/mutator"
+import { usePostsStore } from "@/lib/store/posts"
 
 export async function getPosts(params?: GetPostsParams): Promise<GetPosts> {
   const queryParams = new URLSearchParams()
@@ -17,13 +18,20 @@ export async function getPosts(params?: GetPostsParams): Promise<GetPosts> {
 }
 
 export function useGetPosts() {
+  const { setPosts, addPosts } = usePostsStore()
   const searchParams = useSearchParams()
   const search = searchParams.get("search") ?? ""
 
-  const { data, ...props } = useInfiniteQuery<GetPosts>({
+  const { ...props } = useInfiniteQuery<GetPosts>({
     queryKey: ["posts", getPosts.name, search],
     queryFn: async ({ pageParam = 1 }) => {
-      return await getPosts({ page: String(pageParam), search })
+      const result = await getPosts({ page: String(pageParam), search })
+      if (pageParam === 1) {
+        setPosts(result.posts)
+      } else {
+        addPosts(result.posts)
+      }
+      return result
     },
     getNextPageParam: (lastPage) => {
       if (lastPage.posts.length < lastPage.limit) {
@@ -35,10 +43,7 @@ export function useGetPosts() {
     refetchOnWindowFocus: false,
   })
 
-  const posts = data?.pages.flatMap((page) => page.posts) ?? []
-
   return {
-    posts,
     ...props,
   }
 }

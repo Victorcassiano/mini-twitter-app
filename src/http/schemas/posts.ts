@@ -1,4 +1,8 @@
 import * as zod from "zod"
+import {
+  MAX_SIZE_UPLOAD_IMAGE,
+  MAX_SIZE_UPLOAD_IMAGE_STRING,
+} from "@/domain/common/constants/values-upload-image"
 
 export const getPostsQueryParams = zod.object({
   page: zod.string().optional(),
@@ -73,4 +77,14 @@ export const feedSchema = zod.object({
     .string()
     .min(1, { message: "O conteúdo não pode estar vazio" })
     .max(500, { message: "O conteúdo deve ter no máximo 500 caracteres" }),
+  image: zod
+    .instanceof(File)
+    .refine((file) => file.size <= MAX_SIZE_UPLOAD_IMAGE, {
+      message: `Imagem muito grande. Máximo: ${MAX_SIZE_UPLOAD_IMAGE_STRING} MB`,
+    })
+    .refine((file) => file.type.startsWith("image/"), {
+      message: "Apenas imagens são permitidas",
+    })
+    .transform((file) => file)
+    .optional(),
 })

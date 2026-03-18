@@ -20,7 +20,7 @@ type PopupOptionsCardProps = {
     authorName: string
     content: string
     createdAt: string
-    image: string
+    image: string | null
     likesCount: number
     title: string
   }

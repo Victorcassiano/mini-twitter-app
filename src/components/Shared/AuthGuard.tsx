@@ -32,5 +32,3 @@ export function AuthGuard({
 
   return children
 }
-
-// Dica para toggle no botão de like, utilize store para salvar array de likes [{idPost}]

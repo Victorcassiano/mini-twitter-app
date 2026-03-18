@@ -2,11 +2,11 @@ import { create } from "zustand"
 import { Post } from "@/http/types/posts"
 
 type StoreProps = {
-  value: Post | undefined
-  set: (value: Post | undefined) => void
+  value: Post | null
+  set: (value: Post | null) => void
 }
 
 export const useStoreEditPost = create<StoreProps>()((set) => ({
-  value: undefined,
+  value: null,
   set: (value) => set({ value }),
 }))
