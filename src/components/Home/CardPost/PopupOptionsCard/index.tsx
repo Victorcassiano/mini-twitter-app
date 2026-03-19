@@ -10,20 +10,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { Post } from "@/http/types/posts"
 import { useConfirmDeletePostModal } from "@/lib/store/confirm-modal-delete-post"
 import { useStoreEditPost } from "@/lib/store/edit-post"
 
 type PopupOptionsCardProps = {
-  post: {
-    id: number
-    authorId: number
-    authorName: string
-    content: string
-    createdAt: string
-    image: string | null
-    likesCount: number
-    title: string
-  }
+  post: Post
 }
 
 export function PopupOptionsCard({ post }: PopupOptionsCardProps) {
