@@ -77,7 +77,7 @@ export default function CardPost({ post }: CardPostProps) {
 
         <Button
           variant="ghost"
-          className="group flex items-center gap-1 sm:gap-2 text-xs sm:text-base"
+          className="group flex items-center gap-1 p-0 sm:gap-2 text-xs sm:text-base"
           onClick={handleLike}
         >
           <HugeiconsIcon

@@ -21,5 +21,8 @@ export const STATUS_MESSAGES: StatusMessageMap = {
     PUT: {
       401: "Você precisa estar autenticado para editar este post. Faça login e tente novamente.",
     },
+    POST: {
+      401: "Sua sessão não foi identificada. Faça login novamente para continuar.",
+    },
   },
 }
