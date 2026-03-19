@@ -1,7 +1,13 @@
 {
   "name": "mini-twitter-app",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "private": false,
+  "author": {
+    "name": "Victor Cassiano",
+    "url": "https://github.com/Victorcassiano"
+  },
+  "repository": "https://github.com/Victorcassiano/mini-twitter-app",
+  "license": "MIT",
   "scripts": {
     "dev": "next dev -p 3001",
     "build": "next build",
