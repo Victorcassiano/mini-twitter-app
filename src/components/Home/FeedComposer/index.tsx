@@ -45,13 +45,13 @@ function FeedComposerComponent({ post, onSuccess }: FeedComposerProps = {}) {
     handleSubmit(data, file, hasExistingImage, clear, form.reset)
 
   return (
-    <div className="w-full max-w-4xl mx-auto bg-white rounded-xl border p-4 mt-8">
+    <div className="w-full max-w-4xl mx-auto bg-white rounded-xl border p-4 mt-8 dark:bg-card">
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FieldGroup>
           <Field>
             <Input
               placeholder="Insira um título"
-              className="border-0 p-0 text-lg"
+              className="border-0 p-0 text-lg dark:bg-transparent"
               {...form.register("title")}
             />
             <FieldError errors={[form.formState.errors.title]} />
@@ -60,7 +60,7 @@ function FeedComposerComponent({ post, onSuccess }: FeedComposerProps = {}) {
           <Field>
             <Textarea
               placeholder="E aí, o que está rolando?"
-              className="min-h-25 border-0 p-0 text-lg"
+              className="min-h-25 border-0 p-0 text-lg dark:bg-transparent"
               {...form.register("content")}
             />
             <FieldError errors={[form.formState.errors.content]} />
@@ -95,7 +95,7 @@ function FeedComposerComponent({ post, onSuccess }: FeedComposerProps = {}) {
           <Button
             type="submit"
             disabled={!content?.trim() || isPending}
-            className="px-6 h-10 rounded-full text-white font-medium shadow-[0px_6px_20px_-7px_var(--primary)] transition-colors border-0 text-base disabled:opacity-50"
+            className="px-6 h-10 rounded-full text-white font-medium shadow-[0px_6px_20px_-7px_var(--primary)] transition-colors duration-500 border-0 text-base disabled:opacity-80"
           >
             {isPending ? "Salvando..." : isEditing ? "Salvar" : "Postar"}
           </Button>

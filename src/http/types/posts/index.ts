@@ -16,7 +16,7 @@ export type Post = {
   id: number
   title: string
   content: string
-  image: string | null
+  image: string
   authorId: number
   createdAt: string
   authorName: string

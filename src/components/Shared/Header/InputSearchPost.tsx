@@ -19,11 +19,12 @@ export default function InputSearchPost() {
   )
 
   return (
-    <div className="col-span-1 flex justify-center">
+    <div className="w-full">
       <Input
         containerClassName="w-full"
         leftIcon={<HugeiconsIcon icon={SearchCircleIcon} />}
         placeholder="Buscar por post..."
+        className="h-10"
         onChange={searchDebouced}
       />
     </div>

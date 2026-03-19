@@ -28,7 +28,7 @@ export const ModalConfirmDeletePost = () => {
       visible={Boolean(postId)}
       onClose={onClose}
       footer={
-        <div className="flex gap-3 [&>button]:px-6 [&>button]:h-10 [&>button]:rounded-full [&>button]:text-sm [&>button]:transition-all [&>button]:duration-500">
+        <div className="flex flex-col gap-3 sm:flex-row sm:justify-end [&>button]:px-6 [&>button]:h-10 [&>button]:rounded-full [&>button]:text-sm [&>button]:transition-all [&>button]:duration-500">
           <Button
             variant="outline"
             onClick={onClose}
