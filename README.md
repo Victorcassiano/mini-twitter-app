@@ -57,7 +57,7 @@ Aplicação web inspirada no Twitter para compartilhamento de posts com suporte 
 | `bun dev` | Iniciar servidor de desenvolvimento (porta 3001) |
 | `bun build` | Build de produção |
 | `bun start` | Iniciar servidor de produção |
-| `bun test` | Rodar testes unitários |
+| `bun run test` | Rodar testes unitários |
 | `bun test:coverage` | Rodar testes com coverage |
 | `bun cy:open` | Abrir interface do Cypress |
 | `bun cy:run` | Rodar testes E2E |
