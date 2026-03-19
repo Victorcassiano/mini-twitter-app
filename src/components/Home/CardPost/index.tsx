@@ -9,13 +9,13 @@ import { Post } from "@/http/types/posts"
 import { isAuthenticated } from "@/lib/storage"
 import { usePostsStore } from "@/lib/store/posts"
 import { cn } from "@/lib/utils"
-import { formatDateTimeBR, formatName } from "@/utils/formats"
+import { formatDateTimeBR } from "@/utils/formats"
 import { highlightHashtags } from "@/utils/render-highlight-hashtags"
 import { HoverUser } from "./HoverUser"
 import { PopupOptionsCard } from "./PopupOptionsCard"
 
 type CardPostProps = {
-  post: Omit<Post, "image"> & { image: string | null }
+  post: Post
 }
 
 export default function CardPost({ post }: CardPostProps) {
@@ -41,20 +41,23 @@ export default function CardPost({ post }: CardPostProps) {
   return (
     <Card className="relative rounded-2xl border shadow-sm p-0">
       {isAuth && <PopupOptionsCard post={post} />}
-      <CardContent className="p-5 space-y-4">
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+      <CardContent className="p-3 sm:p-4 lg:p-5 space-y-3 sm:space-y-4">
+        <div className="flex flex-wrap items-center gap-1 sm:gap-2 text-xs sm:text-sm text-muted-foreground">
           <HoverUser username={authorName}>
-            <span className="font-semibold text-foreground">{authorName}</span>
-            <span>@{formatName(authorName)}</span>
+            <span className="font-semibold text-foreground truncate max-w-30 sm:max-w-none">
+              {authorName}
+            </span>
           </HoverUser>
           <span>·</span>
           <span>{formatDateTimeBR(createdAt)}</span>
         </div>
 
-        <h2 className="text-lg font-semibold text-foreground">{title}</h2>
+        <h2 className="text-base sm:text-lg font-semibold text-foreground">
+          {title}
+        </h2>
 
         <p
-          className="text-sm text-muted-foreground leading-relaxed"
+          className="text-xs sm:text-sm text-muted-foreground leading-relaxed"
           dangerouslySetInnerHTML={{
             __html: highlightHashtags(content),
           }}
@@ -74,7 +77,7 @@ export default function CardPost({ post }: CardPostProps) {
 
         <Button
           variant="ghost"
-          className="group flex items-center gap-2 text-muted-foreground p-0 hover:bg-transparent"
+          className="group flex items-center gap-1 sm:gap-2 text-xs sm:text-base"
           onClick={handleLike}
         >
           <HugeiconsIcon
