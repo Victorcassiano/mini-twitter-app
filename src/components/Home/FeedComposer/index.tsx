@@ -53,6 +53,7 @@ function FeedComposerComponent({ post, onSuccess }: FeedComposerProps = {}) {
               placeholder="Insira um título"
               className="border-0 p-0 text-lg dark:bg-transparent"
               {...form.register("title")}
+              data-cy="composer-title"
             />
             <FieldError errors={[form.formState.errors.title]} />
           </Field>
@@ -62,6 +63,7 @@ function FeedComposerComponent({ post, onSuccess }: FeedComposerProps = {}) {
               placeholder="E aí, o que está rolando?"
               className="min-h-25 border-0 p-0 text-lg dark:bg-transparent"
               {...form.register("content")}
+              data-cy="composer-content"
             />
             <FieldError errors={[form.formState.errors.content]} />
           </Field>
@@ -96,6 +98,7 @@ function FeedComposerComponent({ post, onSuccess }: FeedComposerProps = {}) {
             type="submit"
             disabled={!content?.trim() || isPending}
             className="px-6 h-10 rounded-full text-white font-medium shadow-[0px_6px_20px_-7px_var(--primary)] transition-colors duration-500 border-0 text-base disabled:opacity-80"
+            data-cy="composer-submit"
           >
             {isPending ? "Salvando..." : isEditing ? "Salvar" : "Postar"}
           </Button>
