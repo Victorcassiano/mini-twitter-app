@@ -85,6 +85,7 @@ export function LoginForm() {
                     icon={<HugeiconsIcon icon={Email} className="size-6" />}
                     disabled={isPending}
                     aria-invalid={fieldState.invalid}
+                    data-cy="login-email"
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -107,6 +108,7 @@ export function LoginForm() {
                     autoComplete="current-password"
                     disabled={isPending}
                     aria-invalid={fieldState.invalid}
+                    data-cy="login-password"
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -123,6 +125,7 @@ export function LoginForm() {
           onClick={form.handleSubmit(onSubmit)}
           disabled={isPending}
           className="w-full h-12 rounded-full text-white font-medium shadow-[0px_6px_20px_-7px_var(--primary)] transition-colors border-0 text-base"
+          data-cy="login-submit"
         >
           {isPending ? (
             <div className="flex items-center gap-2">

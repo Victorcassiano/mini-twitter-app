@@ -79,6 +79,7 @@ export default function CardPost({ post }: CardPostProps) {
           variant="ghost"
           className="group flex items-center gap-1 p-0 sm:gap-2 text-xs sm:text-base"
           onClick={handleLike}
+          data-cy="post-like-button"
         >
           <HugeiconsIcon
             icon={Heart}
