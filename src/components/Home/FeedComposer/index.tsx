@@ -1,96 +1,94 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Image } from "@hugeicons/core-free-icons"
+import { ImageIcon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import dynamic from "next/dynamic"
-import { Controller, useForm } from "react-hook-form"
+import { useRef } from "react"
+import { useForm } from "react-hook-form"
+import { ImagePreview } from "@/components/Shared/ImagePreview"
 import { Button } from "@/components/ui/button"
 import { Field, FieldError, FieldGroup } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { useCreatePost } from "@/http/hooks/posts"
+import { useFeedComposer } from "@/http/hooks/feed/useFeedComposer"
+import { useImageUpload } from "@/http/hooks/posts/useImageUpload"
 import { feedSchema } from "@/http/schemas/posts"
-import { FeedFormValues } from "@/http/types/posts"
+import { FeedFormInput, Post } from "@/http/types/posts"
 
-function FeedComposerComponent() {
-  const { mutate, isPending } = useCreatePost()
+type FeedComposerProps = {
+  post?: Post | null
+  onSuccess?: () => void
+}
 
-  const form = useForm<FeedFormValues>({
+function FeedComposerComponent({ post, onSuccess }: FeedComposerProps = {}) {
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
+
+  const { file, preview, onSelect, onRemove, hasExistingImage, clear } =
+    useImageUpload({ existingImage: post?.image })
+
+  const { handleSubmit, isEditing } = useFeedComposer({ post, onSuccess })
+
+  const form = useForm<FeedFormInput>({
     resolver: zodResolver(feedSchema),
     defaultValues: {
-      title: "",
-      content: "",
+      title: post?.title || "",
+      content: post?.content || "",
     },
   })
 
   const content = form.watch("content")
 
-  const onSubmit = async (data: FeedFormValues) => {
-    mutate(
-      { content: data.content, title: data.title },
-      {
-        onSuccess: () => {
-          form.reset()
-        },
-      },
-    )
-  }
+  const isPending = form.formState.isSubmitting
 
-  const handleImageUpload = () => {
-    // Lógica para upload de imagem
-    console.log("Upload image")
-  }
+  const onSubmit = (data: FeedFormInput) =>
+    handleSubmit(data, file, hasExistingImage, clear, form.reset)
 
   return (
-    <div className="w-full max-w-4xl mx-auto bg-white rounded-xl border border-gray-200 shadow-lg p-4 mt-8">
+    <div className="w-full max-w-4xl mx-auto bg-white rounded-xl border p-4 mt-8 dark:bg-card">
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FieldGroup>
-          <Controller
-            control={form.control}
-            name="title"
-            render={({ field, fieldState }) => (
-              <Field>
-                <Input
-                  placeholder="Insira um título"
-                  className="resize-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 p-0 text-lg placeholder:text-gray-500 dark:bg-white"
-                  {...field}
-                />
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
-            )}
+          <Field>
+            <Input
+              placeholder="Insira um título"
+              className="border-0 p-0 text-lg dark:bg-transparent"
+              {...form.register("title")}
+              data-cy="composer-title"
+            />
+            <FieldError errors={[form.formState.errors.title]} />
+          </Field>
+
+          <Field>
+            <Textarea
+              placeholder="E aí, o que está rolando?"
+              className="min-h-25 border-0 p-0 text-lg dark:bg-transparent"
+              {...form.register("content")}
+              data-cy="composer-content"
+            />
+            <FieldError errors={[form.formState.errors.content]} />
+          </Field>
+
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={(e) => onSelect(e.target.files?.[0])}
           />
-          <Controller
-            control={form.control}
-            name="content"
-            render={({ field, fieldState }) => (
-              <Field>
-                <Textarea
-                  placeholder="E aí, o que está rolando?"
-                  className="min-h-25 resize-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 p-0 text-lg placeholder:text-gray-500 dark:bg-white"
-                  rows={3}
-                  {...field}
-                />
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
-            )}
-          />
+
+          {preview && <ImagePreview src={preview} onRemove={onRemove} />}
         </FieldGroup>
 
-        <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
+        <div className="flex justify-between border-t pt-4">
           <Button
             type="button"
             variant="ghost"
             size="icon"
-            onClick={handleImageUpload}
+            onClick={() => fileInputRef.current?.click()}
             className="group size-8 text-gray-500 hover:text-gray-700 hover:bg-transparent"
           >
             <HugeiconsIcon
-              icon={Image}
+              icon={ImageIcon}
               className="size-full text-primary group-hover:text-primary/80"
             />
             <span className="sr-only">Adicionar imagem</span>
@@ -99,9 +97,10 @@ function FeedComposerComponent() {
           <Button
             type="submit"
             disabled={!content?.trim() || isPending}
-            className="px-6 h-10 rounded-full text-white font-medium shadow-[0px_6px_20px_-7px_var(--primary)] transition-colors border-0 text-base disabled:opacity-50"
+            className="px-6 h-10 rounded-full text-white font-medium shadow-[0px_6px_20px_-7px_var(--primary)] transition-colors duration-500 border-0 text-base disabled:opacity-80"
+            data-cy="composer-submit"
           >
-            {isPending ? "Postando..." : "Postar"}
+            {isPending ? "Salvando..." : isEditing ? "Salvar" : "Postar"}
           </Button>
         </div>
       </form>

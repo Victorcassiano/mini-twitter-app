@@ -1,36 +1,123 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mini Twitter App
 
-## Getting Started
+Aplicação web inspirada no Twitter para compartilhamento de posts com suporte a imagens, autenticação e interações.
 
-First, run the development server:
+## Tecnologias
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### Frontend
+- **Next.js 16** - Framework React com App Router
+- **React 19** - Biblioteca de UI
+- **Tailwind CSS v4** - Framework de estilos
+- **shadcn/ui** - Componentes reutilizáveis
+- **Hugeicons** - Biblioteca de ícones
+
+### Estado & Data Fetching
+- **Zustand** - Gerenciamento de estado global
+- **TanStack Query v5** - Fetching e cache de dados
+- **React Hook Form** - Gerenciamento de formulários
+- **Zod** - Validação de esquemas
+
+### Backend & Storage
+- **Supabase** - Armazenamento de imagens
+- **Axios** - Cliente HTTP
+- **localStorage** - Persistência de autenticação
+
+### Testes
+- **Vitest** - Testes unitários
+- **Cypress** - Testes E2E
+
+### Linting & Outros
+- **Biome** - Linting e formatação
+- **TypeScript 5** - Tipagem estática
+- **Sonner** - Sistema de notificações
+
+## Pré-requisitos
+
+- Node.js ou Bun
+- Bun (recomendado) ou npm
+
+## Instalação
+
+1. Clonar o repositório
+2. Instalar dependências:
+   ```bash
+   bun install
+   ```
+3. Configurar variáveis de ambiente no `.env.local`
+4. Iniciar o servidor:
+   ```bash
+   bun dev
+   ```
+5. Acessar [http://localhost:3001](http://localhost:3001)
+
+## Scripts Disponíveis
+
+| Script | Descrição |
+|--------|-----------|
+| `bun dev` | Iniciar servidor de desenvolvimento (porta 3001) |
+| `bun build` | Build de produção |
+| `bun start` | Iniciar servidor de produção |
+| `bun test` | Rodar testes unitários |
+| `bun test:coverage` | Rodar testes com coverage |
+| `bun cy:open` | Abrir interface do Cypress |
+| `bun cy:run` | Rodar testes E2E |
+| `bun biome:check` | Verificar linting |
+| `bun biome:fix` | Corrigir erros de linting |
+
+## Variáveis de Ambiente
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Funcionalidades
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Autenticação (login/cadastro)
+- Criar posts com título e conteúdo
+- Upload de imagens
+- Curtir/descurtir posts
+- Editar posts
+- Excluir posts
+- Busca de posts
+- Tema claro/escuro
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Testes
 
-## Learn More
+### Unit Tests (Vitest)
+- **64 testes** cobrindo:
+  - Schemas de validação (auth, posts)
+  - Stores Zustand
+  - Hooks personalizados
+  - Utilitários
 
-To learn more about Next.js, take a look at the following resources:
+### E2E Tests (Cypress)
+- **17 testes** cobrindo:
+  - Fluxo de autenticação (login, registro, logout)
+  - CRUD de posts (criar, editar, deletar)
+  - Interações (curtir posts)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Estrutura do Projeto
 
-## Deploy on Vercel
+```
+src/
+├── app/                 # Rotas Next.js
+├── components/          # Componentes React
+│   ├── Home/           # Páginas Home
+│   ├── Login/          # Página de Login
+│   └── Shared/         # Componentes compartilhados
+├── domain/             # Constantes e configurações
+├── http/              # Hooks, schemas e tipos
+│   ├── hooks/         # React Query hooks
+│   └── schemas/       # Schemas Zod
+├── lib/               # Utilitários e configurações
+│   ├── store/         # Stores Zustand
+│   └── storage/       # Funções de storage
+├── test/              # Testes unitários
+└── utils/             # Funções utilitárias
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+cypress/               # Testes E2E
+├── e2e/               # Specs de testes
+└── support/           # Comandos customizados
+```

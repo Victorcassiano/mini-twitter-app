@@ -10,12 +10,7 @@ export default function ButtonLogout() {
 
   return (
     <div className="flex justify-end">
-      <Button
-        variant="round"
-        size="icon-lg"
-        className="size-10 rotate-180"
-        onClick={toggle}
-      >
+      <Button variant="round" size="icon" className="size-10" onClick={toggle}>
         <HugeiconsIcon icon={Logout} className="size-4 dark:text-white" />
       </Button>
       <ModalConfirmLogout />

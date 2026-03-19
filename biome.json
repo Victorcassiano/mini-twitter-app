@@ -21,6 +21,9 @@
       "complexity": {
         "useRegexLiterals": "off"
       },
+      "security": {
+        "noDangerouslySetInnerHtml": "off"
+      },
       "correctness": {
         "noUnusedImports": {
           "level": "warn",

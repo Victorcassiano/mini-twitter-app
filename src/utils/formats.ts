@@ -20,7 +20,8 @@ function parseToISODate(dateString: string): Date {
 }
 
 export function formatName(name: string) {
-  return name
+  const formatedName = name ?? ""
+  return formatedName
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()

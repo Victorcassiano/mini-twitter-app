@@ -10,20 +10,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { Post } from "@/http/types/posts"
 import { useConfirmDeletePostModal } from "@/lib/store/confirm-modal-delete-post"
 import { useStoreEditPost } from "@/lib/store/edit-post"
 
 type PopupOptionsCardProps = {
-  post: {
-    id: number
-    authorId: number
-    authorName: string
-    content: string
-    createdAt: string
-    image: string
-    likesCount: number
-    title: string
-  }
+  post: Post
 }
 
 export function PopupOptionsCard({ post }: PopupOptionsCardProps) {
@@ -38,6 +30,7 @@ export function PopupOptionsCard({ post }: PopupOptionsCardProps) {
           <Button
             variant={"ghost"}
             className="absolute size-8 right-2 top-2 rounded-xl"
+            data-cy="post-options-button"
           >
             <HugeiconsIcon icon={MoreVerticalIcon} />
           </Button>
@@ -48,6 +41,7 @@ export function PopupOptionsCard({ post }: PopupOptionsCardProps) {
           variant={"ghost"}
           className="flex items-center justify-between"
           onClick={() => setPostId(id)}
+          data-cy="post-delete-button"
         >
           Deletar
           <HugeiconsIcon icon={Trash2} className="text-red-500" />
@@ -56,6 +50,7 @@ export function PopupOptionsCard({ post }: PopupOptionsCardProps) {
           variant={"ghost"}
           className="flex items-center justify-between"
           onClick={() => setEdit(post)}
+          data-cy="post-edit-button"
         >
           Editar
           <HugeiconsIcon icon={Edit02Icon} className="text-blue-500" />

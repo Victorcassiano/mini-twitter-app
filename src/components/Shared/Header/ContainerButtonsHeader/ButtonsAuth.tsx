@@ -7,13 +7,14 @@ export function ButtonsAuth() {
   const { setTab } = useStoreLoginTabs()
 
   return (
-    <div className="grid grid-cols-2 justify-end space-x-4 [&>button]:h-10 [&>button]:rounded-full [&>button]:transition-colors [&>button]:p-4 [&>button]:text-sm">
+    <div className="grid grid-cols-1 lg:grid-cols-2 justify-end space-x-4 [&>button]:h-10 [&>button]:rounded-full [&>button]:transition-colors [&>button]:p-4 [&>button]:text-sm">
       <Button
         variant="outline"
         onClick={() => {
           setTab("register")
           router.push("/login")
         }}
+        className="hidden lg:flex"
       >
         Registrar-se
       </Button>

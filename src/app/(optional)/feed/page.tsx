@@ -9,7 +9,7 @@ function Page() {
   const isAuth = isAuthenticated()
 
   return (
-    <div className="mx-auto w-3xl gap-5">
+    <div className="mx-auto max-w-3xl px-3 gap-5">
       {isAuth && <FeedComposer />}
 
       <Feed />

@@ -27,18 +27,21 @@ export const ModalConfirmDeletePost = () => {
       title="Excluir post?"
       visible={Boolean(postId)}
       onClose={onClose}
+      data-cy="delete-modal"
       footer={
-        <div className="flex gap-3 [&>button]:px-6 [&>button]:h-10 [&>button]:rounded-full [&>button]:text-sm [&>button]:transition-all [&>button]:duration-500">
+        <div className="flex flex-col gap-3 sm:flex-row sm:justify-end [&>button]:px-6 [&>button]:h-10 [&>button]:rounded-full [&>button]:text-sm [&>button]:transition-all [&>button]:duration-500">
           <Button
             variant="outline"
             onClick={onClose}
             className="hover:text-primary hover:border-primary/90"
+            data-cy="delete-cancel-button"
           >
             Cancelar
           </Button>
           <Button
             onClick={handleDelete}
             className="text-white bg-destructive hover:bg-destructive/80 font-medium shadow-[0px_6px_20px_-7px_var(--destructive)] border-0 disabled:opacity-50"
+            data-cy="delete-confirm-button"
           >
             Excluir
           </Button>

@@ -7,12 +7,14 @@ import { ModalConfirmDeletePost } from "@/components/Shared/Modals/ModalConfirmD
 import { ModalEditPost } from "@/components/Shared/Modals/ModalEditPost"
 import { useGetPosts } from "@/http/hooks/posts"
 import { useStoreEditPost } from "@/lib/store/edit-post"
+import { usePostsStore } from "@/lib/store/posts"
 import CardPost from "../CardPost"
 import { InfiniteScrollSentinel } from "../InfiniteScrollSentinel"
 
 function FeedCompopnent() {
   const { value } = useStoreEditPost()
-  const { posts, fetchNextPage, isFetchingNextPage, isLoading, isFetching } =
+  const posts = usePostsStore((s) => s.posts)
+  const { fetchNextPage, isFetchingNextPage, isLoading, isFetching } =
     useGetPosts()
 
   if (isLoading || isFetching) return <Loader />

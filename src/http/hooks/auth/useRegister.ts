@@ -17,9 +17,6 @@ export function useRegister() {
     RegisterInput
   >({
     mutationFn: register,
-    onSuccess: (response) => {
-      console.log("Usuário registrado:", response)
-    },
   })
 
   return {

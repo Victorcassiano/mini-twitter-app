@@ -79,6 +79,7 @@ export function RegisterForm() {
                     icon={<HugeiconsIcon icon={Person} className="size-6" />}
                     disabled={isPending}
                     aria-invalid={fieldState.invalid}
+                    data-cy="register-name"
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -100,6 +101,7 @@ export function RegisterForm() {
                     icon={<HugeiconsIcon icon={Email} className="size-6" />}
                     disabled={isPending}
                     aria-invalid={fieldState.invalid}
+                    data-cy="register-email"
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -121,6 +123,7 @@ export function RegisterForm() {
                     autoComplete="current-password"
                     disabled={isPending}
                     aria-invalid={fieldState.invalid}
+                    data-cy="register-password"
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -137,6 +140,7 @@ export function RegisterForm() {
           onClick={form.handleSubmit(onSubmit)}
           disabled={isPending}
           className="w-full h-12 rounded-full text-white font-medium shadow-[0px_6px_20px_-7px_var(--primary)] transition-colors border-0 text-base"
+          data-cy="register-submit"
         >
           {isPending ? (
             <div className="flex items-center gap-2">
